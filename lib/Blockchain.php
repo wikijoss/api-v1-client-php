@@ -7,10 +7,12 @@ class Blockchain {
 	const GET_URL = 'https://blockchain.info/';
 	const API_URL = 'https://blockchain.info/api/';
 
-	const DEBUG = true;
 
 	private $ch;
 	private $api_code = null;
+
+	const DEBUG = true;
+	public $log = Array();
 
 	public function __construct($api_code=null) {
 		if(!is_null($api_code)) {
@@ -77,11 +79,13 @@ class Blockchain {
 		}
 
 		if(self::DEBUG) {
-			$json['debug'] = array('elapsed_ms' => round(1000*$dt));
+			$info = curl_getinfo($this->ch);
+			$this->log[] = array(
+				'curl_info' => $info,
+				'elapsed_ms' => round(1000*$dt)
+			);
 		}
 
 		return $json;
 	}
 }
-
-?>
