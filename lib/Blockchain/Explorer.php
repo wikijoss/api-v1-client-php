@@ -34,6 +34,68 @@ class Explorer {
 	public function getTransaction($txid) {
 		return new Transaction($this->blockchain->get('rawtx/' . $txid, array('format'=>'json')));
 	}
+
+	/* 	Get details about a single address, listing up to $limit transactions
+	 	starting at $offset.
+	*/
+	public function getAddress($address, $limit=50, $offset=0) {
+		$params = array(
+			'format'=>'json',
+			'limit'=>intval($limit),
+			'offset'=>intval($offset)
+		);
+		return new Address($this->blockchain->get('address/' . $address, $params));
+	}
+
+	/* Get a list of unspent outputs for an array of addresses
+
+	*/
+	public function getUnspentOutputs($addresses) {
+		if(!is_array($addresses))
+			throw new Blockchain_FormatError('Must pass array argument.');
+		$params = array(
+			'format'=>'json',
+			'active'=>implode('|', $addresses)
+		);
+		$json = $this->blockchain->get('unspent', $params);
+		$outputs = Array();
+		if(array_key_exists('unspent_outputs', $json)) {
+			foreach ($json['unspent_outputs'] as $output) {
+				$outputs[] = new UnspentOutput($output);
+			}
+		}
+		return $outputs;
+	}
+}
+
+class Address {
+	public $hash160;
+    public $address;
+    public $n_tx;
+    public $total_received;
+    public $total_sent;
+    public $final_balance;
+    public $transactions = array();
+
+    public function __construct($json) {
+    	if(array_key_exists('hash160', $json))
+    		$this->hash160 = $json['hash160'];
+    	if(array_key_exists('address', $json))
+    		$this->address = $json['address'];
+    	if(array_key_exists('n_tx', $json))
+    		$this->n_tx = $json['n_tx'];
+    	if(array_key_exists('total_received', $json))
+    		$this->total_received = $json['total_received'];
+    	if(array_key_exists('total_sent', $json))
+    		$this->total_sent = $json['total_sent'];
+    	if(array_key_exists('final_balance', $json))
+    		$this->final_balance = $json['final_balance'];
+    	if(array_key_exists('txs', $json)) {
+    		foreach ($json['txs'] as $txn) {
+    			$this->transactions[] = new Transaction($txn);
+    		}
+    	}
+    }
 }
 
 class Input {
@@ -96,6 +158,33 @@ class Output {
     		$this->address_tag = $json['addr_tag'];
     	if(array_key_exists('addr_tag_link', $json))
     		$this->address_tag_link = $json['addr_tag_link'];
+    }
+}
+
+class UnspentOutput {
+	public $tx_hash;
+    public $tx_index;
+    public $tx_output_n;
+    public $script;
+    public $value;
+    public $value_hex;
+    public $confirmations;
+
+    public function __construct($json) {
+    	if(array_key_exists('tx_hash', $json))
+    		$this->tx_hash = $json['tx_hash'];
+    	if(array_key_exists('tx_index', $json))
+    		$this->tx_index = $json['tx_index'];
+    	if(array_key_exists('tx_output_n', $json))
+    		$this->tx_output_n = $json['tx_output_n'];
+    	if(array_key_exists('script', $json))
+    		$this->script = $json['script'];
+    	if(array_key_exists('value', $json))
+    		$this->value = $json['value'];
+    	if(array_key_exists('value_hex', $json))
+    		$this->value_hex = $json['value_hex'];
+    	if(array_key_exists('confirmations', $json))
+    		$this->confirmations = $json['confirmations'];
     }
 }
 
