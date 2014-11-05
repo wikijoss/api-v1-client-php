@@ -34,6 +34,10 @@ class Blockchain {
 		curl_close($this->ch);
 	}
 
+	public function setTimeout($timeout) {
+		curl_setopt($this->ch, CURLOPT_TIMEOUT, intval($timeout));
+	}
+
 	public function post($resource, $data=null) {
 		curl_setopt($this->ch, CURLOPT_URL, self::API_URL.$resource);
 		curl_setopt($this->ch, CURLOPT_POST, true);
