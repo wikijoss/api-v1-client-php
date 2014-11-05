@@ -13,7 +13,7 @@ $Blockchain = new Blockchain($api_code);
 print_r($Blockchain->Explorer->getBlocksAtHeight(1));
 
 // Get block by index
-// $block = $Blockchain->Explorer->getBlockAtIndex(100000);
+// $block = $Blockchain->Explorer->getBlockByIndex(100000);
 // print_r($block);
 
 // Get previous block by hash
@@ -22,6 +22,9 @@ print_r($Blockchain->Explorer->getBlocksAtHeight(1));
 
 // First mining reward transaction
 // print_r($Blockchain->Explorer->getTransaction('0e3e2357e806b6cdb1f70b54c3a3a17b6714ee1f0e68bebb44a74b1efd512098'));
+
+// Get the transaction from block 1, by index
+// print_r($Blockchain->Explorer->getTransactionByIndex(14854));
 
 // Get details of a single address
 // print_r($Blockchain->Explorer->getAddress('1AqC4PhwYf7QAyGBhThcyQCKHJyyyLyAwc'));
