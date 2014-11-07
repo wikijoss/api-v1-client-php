@@ -1,28 +1,10 @@
 Block Explorer Documentation
 ============================
 
-The Blockchain block explorer provides programmatic access to the Bitcoin network internals.
-
-
-Usage
------
-
-Include the core Blockchain php file for all client API operations.
+The Blockchain block explorer provides programmatic access to the Bitcoin network internals. All block explorer functionality is available from the `Explorer` member object within a `Blockchain` object:
 
 ```
-require('lib/Blockchain.php');
-```
-
-Create a new Blockchain object, with optional API code. Request an API code [here](https://blockchain.info/api/api_create_code).
-
-```
-$Blockchain = new Blockchain($api_code);
-```
-
-All block explorer functionality is available from the `Explorer` member object within `$Blockchain`:
-
-```
-$block = $Blockchain->Explorer->getTransaction($tx_hash);
+$val = $Blockchain->Explorer->someFunc($param);
 ```
 
 
@@ -113,7 +95,7 @@ class Block {
     public $merkle_root;                // string
     public $time;                       // int
     public $bits;                       // int
-    public $fee;                        // int
+    public $fee;                        // string
     public $nonce;                      // int
     public $n_tx;                       // int
     public $size;                       // int
@@ -149,9 +131,10 @@ class Input {
     public $sequence;                   // int
     public $script_sig;                 // string
     public $coinbase = true;            // bool
+    
     // If coinbase is false, then the following fields are created
     public $n;                          // int
-    public $value;                      // int
+    public $value;                      // string
     public $address;                    // string
     public $tx_index;                   // int
     public $type;                       // int
@@ -165,7 +148,7 @@ class Input {
 ```
 class Output {
     public $n;                          // int
-    public $value;                      // int
+    public $value;                      // string
     public $address;                    // string
     public $tx_index;                   // int
     public $script;                     // string
@@ -179,9 +162,9 @@ class Address {
     public $hash160;                    // string
     public $address;                    // string
     public $n_tx;                       // int
-    public $total_received;             // int
-    public $total_sent;                 // int
-    public $final_balance;              // int
+    public $total_received;             // string
+    public $total_sent;                 // string
+    public $final_balance;              // string
     public $transactions = array();     // Array of Transaction objects
 }
 ```
@@ -193,7 +176,7 @@ class UnspentOutput {
     public $tx_index;                   // int
     public $tx_output_n;                // int
     public $script;                     // string
-    public $value;                      // int
+    public $value;                      // string
     public $value_hex;                  // string
     public $confirmations;              // int
 }

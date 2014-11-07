@@ -17,7 +17,39 @@ $Blockchain = new Blockchain($api_code);
 All functionality is provided through the `Blockchain` object. If you need an API code, you may request one [here](https://blockchain.info/api/api_create_code).
 
 
+A Note about Bitcoin Values
+---------------------------
+
+All Bitcoin values returned by the API are in string format, in order to preserve full value precision. It is recommended that all arithmetic operations performed on Bitcoin values within PHP utilize the `bcmath` functions as follows:
+
+* `bcadd` Add two numbers: 
+
+ `$result = bcadd("101.234115", "34.92834753", 8); // "136.16246253"`
+
+* `bcsub` Subtract two numbers: 
+
+    `$result = bcsub("101.234115", "34.92834753", 8); // "66.30576747"`
+
+* `bcnul` Add two numbers: 
+
+    `$result = bcmul("101.234115", "34.92834753", 8); // "3535.940350613"`
+    
+* `bcdiv` Add two numbers: 
+
+ `$result = bcdiv("101.234115", "34.92834753", 8); // "2.89833679"`
+
+The `8` in the final parameter of each `bcmath` function call represents the numerical precision to keep in the result.
+
+More help on the `bcmath` functions can be found in the [PHP BC Math documentation](http://php.net/manual/en/ref.bc.php).
+
+
 Documentation
 -------------
 
 [Block explorer](docs/blockexplorer.md)
+
+
+Dependencies
+------------
+
+The library depends on having the `curl` and `bcmath` modules enabled in your PHP installation.

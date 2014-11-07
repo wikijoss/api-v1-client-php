@@ -1,11 +1,26 @@
 <?php
+/*
+    Blockchain PHP API
+    https://github.com/blockchain/api-v1-client-php/
+*/
 
 require_once(__DIR__.'/Blockchain/Exceptions.php');
+
+// Check if BCMath module installed
+if(!function_exists('bcscale')) {
+    throw new Blockchain_Error("BC Math module not installed.");
+}
+
+// Check if curl module installed
+if(!function_exists('curl_init')) {
+    throw new Blockchain_Error("cURL module not installed.");
+}
+
 require_once(__DIR__.'/Blockchain/Explorer.php');
+require_once(__DIR__.'/Blockchain/Wallet.php');
 
 class Blockchain {
-	const GET_URL = 'https://blockchain.info/';
-	const API_URL = 'https://blockchain.info/api/';
+	const URL = 'https://blockchain.info/';
 
 
 	private $ch;
@@ -28,6 +43,7 @@ class Blockchain {
         curl_setopt($this->ch, CURLOPT_CAINFO, __DIR__.'/Blockchain/ca-bundle.crt');
 
         $this->Explorer = new Explorer($this);
+        $this->Wallet = new Wallet($this);
 	}
 
 	public function __deconstruct() {
@@ -39,12 +55,17 @@ class Blockchain {
 	}
 
 	public function post($resource, $data=null) {
-		curl_setopt($this->ch, CURLOPT_URL, self::API_URL.$resource);
-		curl_setopt($this->ch, CURLOPT_POST, true);
+		curl_setopt($this->ch, CURLOPT_URL, self::URL.$resource);
+        curl_setopt($this->ch, CURLOPT_POST, true);
 
-		if(!is_null($this->api_code)) {
-			$data['api_code'] = $this->api_code;
-		}
+        curl_setopt($this->ch, CURLOPT_HTTPHEADER, 
+            array("Content-Type: application/x-www-form-urlencoded"));
+
+        if(!is_null($this->api_code)) {
+            $data['api_code'] = $this->api_code;
+        }
+
+        curl_setopt($this->ch, CURLOPT_POSTFIELDS, http_build_query($data));
 
 		$json = $this->_call();
 
@@ -62,8 +83,10 @@ class Blockchain {
 		if(!is_null($this->api_code)) {
 			$params['api_code'] = $this->api_code;
 		}
+        curl_setopt($this->ch, CURLOPT_HTTPHEADER, array());
+
 		$query = http_build_query($params);
-		curl_setopt($this->ch, CURLOPT_URL, self::GET_URL.$resource.'?'.$query);
+		curl_setopt($this->ch, CURLOPT_URL, self::URL.$resource.'?'.$query);
 
 		return $this->_call();
 	}
@@ -92,4 +115,10 @@ class Blockchain {
 
 		return $json;
 	}
+}
+
+// Convert an incoming integer to a BTC string value
+function BTC_int2str($val) {
+    $a = bcmul($val, "1.0", 1);
+    return bcdiv($a, "100000000", 8);
 }

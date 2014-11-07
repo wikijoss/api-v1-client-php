@@ -184,9 +184,9 @@ class Address {
     public $hash160;                    // string
     public $address;                    // string
     public $n_tx;                       // int
-    public $total_received;             // int
-    public $total_sent;                 // int
-    public $final_balance;              // int
+    public $total_received;             // string
+    public $total_sent;                 // string
+    public $final_balance;              // string
     public $transactions = array();     // Array of Transaction objects
 
     public function __construct($json) {
@@ -197,11 +197,11 @@ class Address {
         if(array_key_exists('n_tx', $json))
             $this->n_tx = $json['n_tx'];
         if(array_key_exists('total_received', $json))
-            $this->total_received = $json['total_received'];
+            $this->total_received = BTC_int2str($json['total_received']);
         if(array_key_exists('total_sent', $json))
-            $this->total_sent = $json['total_sent'];
+            $this->total_sent = BTC_int2str($json['total_sent']);
         if(array_key_exists('final_balance', $json))
-            $this->final_balance = $json['final_balance'];
+            $this->final_balance = BTC_int2str($json['final_balance']);
         if(array_key_exists('txs', $json)) {
             foreach ($json['txs'] as $txn) {
                 $this->transactions[] = new Transaction($txn);
@@ -228,7 +228,7 @@ class Input {
             if(array_key_exists('n', $P)) 
                 $this->n = $P['n'];
             if(array_key_exists('value', $P)) 
-                $this->value = $P['value'];
+                $this->value = BTC_int2str($P['value']);
             if(array_key_exists('addr', $P)) 
                 $this->address = $P['addr'];
             if(array_key_exists('tx_index', $P)) 
@@ -247,7 +247,7 @@ class Input {
 
 class Output {
     public $n;                          // int
-    public $value;                      // int
+    public $value;                      // string
     public $address;                    // string
     public $tx_index;                   // int
     public $script;                     // string
@@ -257,7 +257,7 @@ class Output {
         if(array_key_exists('n', $json))
             $this->n = $json['n'];
         if(array_key_exists('value', $json))
-            $this->value = $json['value'];
+            $this->value = BTC_int2str($json['value']);
         if(array_key_exists('addr', $json))
             $this->address = $json['addr'];
         if(array_key_exists('tx_index', $json))
@@ -278,7 +278,7 @@ class UnspentOutput {
     public $tx_index;                   // int
     public $tx_output_n;                // int
     public $script;                     // string
-    public $value;                      // int
+    public $value;                      // string
     public $value_hex;                  // string
     public $confirmations;              // int
 
@@ -292,7 +292,7 @@ class UnspentOutput {
         if(array_key_exists('script', $json))
             $this->script = $json['script'];
         if(array_key_exists('value', $json))
-            $this->value = $json['value'];
+            $this->value = BTC_int2str($json['value']);
         if(array_key_exists('value_hex', $json))
             $this->value_hex = $json['value_hex'];
         if(array_key_exists('confirmations', $json))
@@ -352,7 +352,7 @@ class Block {
     public $merkle_root;                // string
     public $time;                       // int
     public $bits;                       // int
-    public $fee;                        // int
+    public $fee;                        // string
     public $nonce;                      // int
     public $n_tx;                       // int
     public $size;                       // int
@@ -377,7 +377,7 @@ class Block {
         if(array_key_exists('bits', $json))
             $this->bits = $json['bits'];
         if(array_key_exists('fee', $json))
-            $this->fee = $json['fee'];
+            $this->fee = BTC_int2str($json['fee']);
         if(array_key_exists('nonce', $json))
             $this->nonce = $json['nonce'];
         if(array_key_exists('n_tx', $json))
