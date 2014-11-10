@@ -134,7 +134,7 @@ class Input {
     
     // If coinbase is false, then the following fields are created
     public $n;                          // int
-    public $value;                      // string
+    public $value;                      // string, e.g. "12.64952835"
     public $address;                    // string
     public $tx_index;                   // int
     public $type;                       // int
@@ -148,7 +148,7 @@ class Input {
 ```
 class Output {
     public $n;                          // int
-    public $value;                      // string
+    public $value;                      // string, e.g. "12.64952835"
     public $address;                    // string
     public $tx_index;                   // int
     public $script;                     // string
@@ -162,9 +162,9 @@ class Address {
     public $hash160;                    // string
     public $address;                    // string
     public $n_tx;                       // int
-    public $total_received;             // string
-    public $total_sent;                 // string
-    public $final_balance;              // string
+    public $total_received;             // string, e.g. "12.64952835"
+    public $total_sent;                 // string, e.g. "12.64952835"
+    public $final_balance;              // string, e.g. "12.64952835"
     public $transactions = array();     // Array of Transaction objects
 }
 ```
@@ -176,7 +176,7 @@ class UnspentOutput {
     public $tx_index;                   // int
     public $tx_output_n;                // int
     public $script;                     // string
-    public $value;                      // string
+    public $value;                      // string, e.g. "12.64952835"
     public $value_hex;                  // string
     public $confirmations;              // int
 }

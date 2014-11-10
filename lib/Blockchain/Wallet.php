@@ -50,6 +50,10 @@ class Wallet {
         return BTC_int2str($json['balance']);
     }
 
+    public function getAddressBalance($address) {
+        return new WalletAddress($this->call('address_balance', array('address'=>$address)));
+    }
+
     public function getAddresses() {
         $json = $this->call('list');
         $addresses = array();
@@ -59,12 +63,48 @@ class Wallet {
         return $addresses;
     }
 
+    public function getNewAddress($label=null) {
+        $params = array();
+        if(!is_null($label)) {
+            $params['label'] = $label;
+        }
+        return new WalletAddress($this->call('new_address', $params));
+    }
+
+    public function archiveAddress($address) {
+        $json = $this->call('archive_address', array('address'=>$address));
+        if(array_key_exists('archived', $json)) {
+            if($json['archived'] == $address) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function unarchiveAddress($address) {
+        $json = $this->call('unarchive_address', array('address'=>$address));
+        if(array_key_exists('active', $json)) {
+            if($json['active'] == $address) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function consolidateAddresses($days=60) {
+        $consolidated = array();
+        $json = $this->call('auto_consolidate', array('days'=>intval($days)));
+        if(array_key_exists('consolidated', $json) && is_array($json['consolidated'])) {
+            $consolidated = $json['consolidated'];
+        }
+        return $consolidated;
+    }
 }
 
 class PaymentResponse {
-    public $message;                    //
-    public $tx_hash;
-    public $notice;
+    public $message;                    // string
+    public $tx_hash;                    // string
+    public $notice;                     // string
 
     public function __construct($json) {
         if(array_key_exists('message', $json))
@@ -77,10 +117,10 @@ class PaymentResponse {
 }
 
 class WalletAddress {
-    public $balance;                    // string
+    public $balance;                    // string, e.g. "12.64952835"
     public $address;                    // string
     public $label;                      // string
-    public $total_received;             // string
+    public $total_received;             // string, e.g. "12.64952835"
 
     public function __construct($json) {
         if(array_key_exists('balance', $json))
