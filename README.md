@@ -11,16 +11,26 @@ Download the source or clone the repository. Copy the `lib/` folder into your pr
 ```
 require('lib/Blockchain.php');
 
-$Blockchain = new Blockchain($api_code);
+$Blockchain = new Blockchain();
 ```
 
-All functionality is provided through the `Blockchain` object. If you need an API code, you may request one [here](https://blockchain.info/api/api_create_code).
+All functionality is provided through the `Blockchain` object. 
+
+###Call Limits
+
+The [official documentation](https://blockchain.info/api) lists API call limits, which may be bypassed with an API code. If you use a code, enter it when you create the `Blockchain` object:
+
+```
+$Blockchain = new Blockchain($my_api_code);
+```
+
+If you need an API code, you may request one [here](https://blockchain.info/api/api_create_code).
 
 
 A Note about Bitcoin Values
 ---------------------------
 
-All Bitcoin values returned by the API are in string format, in order to preserve full value precision. It is recommended that all arithmetic operations performed on Bitcoin values within PHP utilize the `bcmath` functions as follows:
+All Bitcoin values returned by the API are in string float format, in order to preserve full value precision. It is recommended that all arithmetic operations performed on Bitcoin values within PHP utilize the `bcmath` functions as follows:
 
 * `bcadd` Add two numbers: 
 
@@ -33,7 +43,7 @@ All Bitcoin values returned by the API are in string format, in order to preserv
 * `bcnul` Add two numbers: 
 
     `$result = bcmul("101.234115", "34.92834753", 8); // "3535.940350613"`
-    
+
 * `bcdiv` Add two numbers: 
 
  `$result = bcdiv("101.234115", "34.92834753", 8); // "2.89833679"`

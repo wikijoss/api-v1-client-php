@@ -20,6 +20,15 @@ $Blockchain->Wallet->credentials('wallet-id-2', 'password-2', 'optional 2nd pass
 // ...
 ```
 
+A Note About Bitcoin Values
+---------------------------
+
+Values returned by this API are `string` representations of the floating point Bitcoin value, with 8 decimal places of precision.
+
+Functions that send Bitcoin accept `float` and `string` Bitcoin amounts, NOT Satoshi amounts.
+
+Read more about string values on the [main documentation](README.md).
+
 
 ###Get Current Identifier
 Use the `getIdentifier` function to check which wallet is active, without having to enter additional credentials. Returns a string.
@@ -54,6 +63,34 @@ Transactions
 ------------
 Functions for making outgoing Bitcoin transactions from the wallet.
 
+###Send
+Send Bitcoin to a single recipient address. The `$amount` field is either a `float` or `string` representation of the floating point value. See above note on Bitcoin values.
+
+The optional `$from_address` field specifies which wallet address from which to send the funds. An optional `$fee` amount (`float`) may be specified but must be more than the default fee listed on the [official documentation](https://blockchain.info/api/blockchain_wallet_api).
+
+The `$public_note` parameter is a message that will appear alongside this transaction on the blockchain.info block explorer.
+
+Returns a `PaymentResponse` object on success and throws a `Blockchain_ApiError` exception for insufficient funds, etc.
+
+```
+$response = $Blockchain->Wallet->send($to_address, $amount, $from_address=null, $fee=null, $public_note=null);
+
+// Example: Send 0.005 BTC to the Genesis of Bitcoin address, with a 0.0001 BTC fee and a public note
+$response = $Blockchain->Wallet->send("1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa", "0.005", null, "0.0001", "Here you go, Satoshi!");
+```
+
+###SendMany
+Send a multi-recipient transaction to many addresses at once. The `$recipients` parameter is an associative array with `address` keys and `amount` values (see example). Optional parameters are the same as with the `send` call. Returns `PaymentResponse` object and throws a `Blockchain_ApiError` exception for insufficient funds, etc.
+```
+$response = $Blockchain->Wallet->sendMany($recipients, $from_address=null, $fee=null, $public_note=null);
+
+// Example: the following produces the same transaction as the previous example.
+$recipeints = array(
+    "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa" => "0.005"
+);
+$response = $Blockchain->Wallet->sendMany($recipients, null, "0.0001", "Here you go, Satoshi!");
+```
+
 
 Address Management
 ------------------
@@ -80,7 +117,23 @@ $address = $Blockchain->Wallet->getNewAddress($label=null);
 Move an address to the archive. Returns `true` on success and `false` on failure.
 
 ```
-$address = $Blockchain->Wallet->archiveAddress($address);
+$result = $Blockchain->Wallet->archiveAddress($address);
+```
+
+
+###Unrchive Address
+Move an address from the archive to the active address list. Returns `true` on success and `false` on failure.
+
+```
+$result = $Blockchain->Wallet->unarchiveAddress($address);
+```
+
+
+###Consolidate Addresses
+Removes inactive addresses from the wallet and sets them up as forwarding addresses. Callback notifications will continue to fire for these addresses, but they will not be part of the wallet. The `$days` parameter determines how long an address must have been inactive in order to be consolidated. A good value for this number is `60` days (the default). Returns a simple `string array` of addresses.
+
+```
+$addresses = $Blockchain->Wallet->consolidateAddresses($days=60);
 ```
 
 
@@ -88,6 +141,16 @@ Return Objects
 --------------
 
 Calls to the API usually return first-class objects.
+
+###PaymentResponse
+
+```
+class PaymentResponse {
+    public $message;                    // string
+    public $tx_hash;                    // string
+    public $notice;                     // string
+}
+```
 
 ###WalletAddress
 

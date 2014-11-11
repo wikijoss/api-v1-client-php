@@ -99,6 +99,45 @@ class Wallet {
         }
         return $consolidated;
     }
+
+    public function send($to_address, $amount, $from_address=null, $fee=null, $public_note=null) {
+        if(!isset($amount))
+            throw new Blockchain_ParameterError("Amount required.");
+
+        $params = array(
+            'to'=>$to_address,
+            'amount'=>BTC_float2int($amount)
+        );
+        if(!is_null($from_address))
+            $params['from'] = $from_address;
+        if(!is_null($fee))
+            $params['fee'] = BTC_float2int($fee);
+        if(!is_null($public_note))
+            $params['note'] = $public_note;
+        
+        return new PaymentResponse($this->call('payment', $params));
+    }
+
+    public function sendMany($recipents, $from_address=null, $fee=null, $public_note=null) {
+        $R = array();
+        foreach ($recipents as $address => $amount) {
+            $R[] = '"' . $address . '":' . BTC_float2int($amount);
+        }
+        $json = '{' . implode(',', $R) . '}';
+        print_r($json);
+        echo "<br />";
+        $params = array(
+            'recipents'=>urlencode($json)
+        );
+        if(!is_null($from_address))
+            $params['from'] = $from_address;
+        if(!is_null($fee))
+            $params['fee'] = BTC_float2int($fee);
+        if(!is_null($public_note))
+            $params['note'] = $public_note;
+        return $params;
+        return new PaymentResponse($this->call('sendmany', $params));
+    }
 }
 
 class PaymentResponse {

@@ -122,3 +122,7 @@ function BTC_int2str($val) {
     $a = bcmul($val, "1.0", 1);
     return bcdiv($a, "100000000", 8);
 }
+// Convert a float value to BTC satoshi integer string
+function BTC_float2int($val) {
+    return bcmul($val, "100000000", 0);
+}
