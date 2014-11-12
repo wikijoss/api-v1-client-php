@@ -118,16 +118,16 @@ class Wallet {
         return new PaymentResponse($this->call('payment', $params));
     }
 
-    public function sendMany($recipents, $from_address=null, $fee=null, $public_note=null) {
+    public function sendMany($recipients, $from_address=null, $fee=null, $public_note=null) {
         $R = array();
-        foreach ($recipents as $address => $amount) {
+        // Construct JSON by hand, preserving the full value of amounts
+        foreach ($recipients as $address => $amount) {
             $R[] = '"' . $address . '":' . BTC_float2int($amount);
         }
         $json = '{' . implode(',', $R) . '}';
-        print_r($json);
-        echo "<br />";
+
         $params = array(
-            'recipents'=>urlencode($json)
+            'recipients'=>$json
         );
         if(!is_null($from_address))
             $params['from'] = $from_address;
@@ -135,7 +135,7 @@ class Wallet {
             $params['fee'] = BTC_float2int($fee);
         if(!is_null($public_note))
             $params['note'] = $public_note;
-        return $params;
+        
         return new PaymentResponse($this->call('sendmany', $params));
     }
 }
