@@ -17,6 +17,7 @@ if(!function_exists('curl_init')) {
 }
 
 require_once(__DIR__.'/Blockchain/Explorer.php');
+require_once(__DIR__.'/Blockchain/Receive.php');
 require_once(__DIR__.'/Blockchain/Wallet.php');
 
 class Blockchain {
@@ -43,6 +44,7 @@ class Blockchain {
         curl_setopt($this->ch, CURLOPT_CAINFO, __DIR__.'/Blockchain/ca-bundle.crt');
 
         $this->Explorer = new Explorer($this);
+        $this->Receive = new Receive($this);
         $this->Wallet = new Wallet($this);
 	}
 

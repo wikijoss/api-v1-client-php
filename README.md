@@ -74,9 +74,12 @@ More help on the `bcmath` functions can be found in the [PHP BC Math documentati
 Documentation
 -------------
 
+[Block explorer](docs/blockexplorer.md) - Access details of the Bitcoin blockchain
+
+[Receive](docs/receive.md) - The easiest way to accept Bitcoin payments
+
 [Wallet](docs/wallet.md) - Send and receive Bitcoin programmatically
 
-[Block explorer](docs/blockexplorer.md) - Access details of the Bitcoin blockchain
 
 
 Dependencies
