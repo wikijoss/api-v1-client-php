@@ -32,25 +32,25 @@ A Note about Bitcoin Values
 
 All Bitcoin values returned by the API are in string float format, in order to preserve full value precision. It is recommended that all arithmetic operations performed on Bitcoin values within PHP utilize the `bcmath` functions as follows:
 
-###`bcadd` Add Two Numbers
+#####`bcadd` Add Two Numbers
 
  ```php
  $result = bcadd("101.234115", "34.92834753", 8); // "136.16246253"
  ```
 
-###`bcsub` Subtract Two Numbers
+#####`bcsub` Subtract Two Numbers
 
 ```php
 $result = bcsub("101.234115", "34.92834753", 8); // "66.30576747"
 ```
 
-###`bcnul` Add Two Numbers
+#####`bcnul` Add Two Numbers
 
 ```php
 $result = bcmul("101.234115", "34.92834753", 8); // "3535.940350613"
 ```
 
-###`bcdiv` Add Two Numbers
+#####`bcdiv` Add Two Numbers
 
 ```php
 $result = bcdiv("101.234115", "34.92834753", 8); // "2.89833679"
