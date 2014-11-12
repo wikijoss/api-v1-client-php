@@ -8,7 +8,7 @@ Getting Started
 ---------------
 
 Download the source or clone the repository. Copy the `lib/` folder into your project and add:
-```
+```php
 require('lib/Blockchain.php');
 
 $Blockchain = new Blockchain();
@@ -20,7 +20,7 @@ All functionality is provided through the `Blockchain` object.
 
 The [official documentation](https://blockchain.info/api) lists API call limits, which may be bypassed with an API code. If you use a code, enter it when you create the `Blockchain` object:
 
-```
+```php
 $Blockchain = new Blockchain($my_api_code);
 ```
 
@@ -56,7 +56,9 @@ More help on the `bcmath` functions can be found in the [PHP BC Math documentati
 Documentation
 -------------
 
-[Block explorer](docs/blockexplorer.md)
+[Wallet](docs/wallet.md) - Send and receive Bitcoin programmatically
+
+[Block explorer](docs/blockexplorer.md) - Access details of the Bitcoin blockchain
 
 
 Dependencies
