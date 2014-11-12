@@ -26,6 +26,16 @@ $Blockchain = new Blockchain($my_api_code);
 
 If you need an API code, you may request one [here](https://blockchain.info/api/api_create_code).
 
+###Network Timeouts
+
+Set the `cURL` timeout, in seconds, with the `setTimeout` member function:
+
+```php
+$Blockchain->setTimeout($timeout_seconds);
+```
+
+The default network timeout is `60` seconds.
+
 
 A Note about Bitcoin Values
 ---------------------------
