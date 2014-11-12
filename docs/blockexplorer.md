@@ -173,6 +173,7 @@ class Address {
 ```
 class UnspentOutput {
     public $tx_hash;                    // string
+    public $tx_hash_le;                 // string - little-endian tx hash
     public $tx_index;                   // int
     public $tx_output_n;                // int
     public $script;                     // string

@@ -275,6 +275,7 @@ class Output {
 
 class UnspentOutput {
     public $tx_hash;                    // string
+    public $tx_hash_le;                 // string
     public $tx_index;                   // int
     public $tx_output_n;                // int
     public $script;                     // string
@@ -284,7 +285,9 @@ class UnspentOutput {
 
     public function __construct($json) {
         if(array_key_exists('tx_hash', $json))
-            $this->tx_hash = $json['tx_hash'];
+            $this->tx_hash_le = $json['tx_hash'];
+        if(array_key_exists('tx_hash_big_endian', $json))
+            $this->tx_hash = $json['tx_hash_big_endian'];
         if(array_key_exists('tx_index', $json))
             $this->tx_index = $json['tx_index'];
         if(array_key_exists('tx_output_n', $json))
