@@ -22,11 +22,11 @@ $Blockchain->Wallet->credentials('wallet-id-2', 'password-2', 'optional 2nd pass
 
 ###A Note About Bitcoin Values
 
-Values returned by this API are `string` representations of the floating point Bitcoin value, with 8 decimal places of precision.
+Values returned by this API are `string` representations of the floating point Bitcoin value, with 8 decimal places of precision, like this: `"105.62774000"`.
 
 Functions that send Bitcoin accept `float` and `string` Bitcoin amounts, NOT Satoshi amounts.
 
-Read more about string values on the [main documentation](README.md).
+Read more about string values on the [main documentation](../README.md).
 
 
 ###Get Current Identifier
