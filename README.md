@@ -76,6 +76,8 @@ Documentation
 
 [Block explorer](docs/blockexplorer.md) - Access details of the Bitcoin blockchain
 
+[Push Transaction](docs/pushtx.md) - Push raw transactions to the Bitcoin network
+
 [Receive](docs/receive.md) - The easiest way to accept Bitcoin payments
 
 [Wallet](docs/wallet.md) - Send and receive Bitcoin programmatically

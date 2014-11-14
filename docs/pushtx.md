@@ -16,7 +16,7 @@ $tx = "RawHexCodeHere";
 
 try {
     $Blockchain->Push->TX($tx);
-} catch (Blockchain_ApiError $e) {
+} catch (Blockchain_Error $e) {
     // Something went wrong
     echo $e->getMessage() . '<br />';
 }
