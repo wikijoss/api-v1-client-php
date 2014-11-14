@@ -80,6 +80,8 @@ Documentation
 
 [Receive](docs/receive.md) - The easiest way to accept Bitcoin payments
 
+[Statistics](docs/stats.md) - Bitcoin network statistics
+
 [Wallet](docs/wallet.md) - Send and receive Bitcoin programmatically
 
 

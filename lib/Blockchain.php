@@ -19,6 +19,7 @@ if(!function_exists('curl_init')) {
 require_once(__DIR__.'/Blockchain/Explorer.php');
 require_once(__DIR__.'/Blockchain/PushTX.php');
 require_once(__DIR__.'/Blockchain/Receive.php');
+require_once(__DIR__.'/Blockchain/Stats.php');
 require_once(__DIR__.'/Blockchain/Wallet.php');
 
 class Blockchain {
@@ -47,6 +48,7 @@ class Blockchain {
         $this->Explorer = new Explorer($this);
         $this->Push = new Push($this);
         $this->Receive = new Receive($this);
+        $this->Stats = new Stats($this);
         $this->Wallet = new Wallet($this);
 	}
 
@@ -129,4 +131,15 @@ function BTC_int2str($val) {
 // Convert a float value to BTC satoshi integer string
 function BTC_float2int($val) {
     return bcmul($val, "100000000", 0);
+}
+// From comment on http://php.net/manual/en/ref.bc.php
+function bcconv($fNumber) {
+    $sAppend = '';
+    $iDecimals = ini_get('precision') - floor(log10(abs($fNumber)));
+    if (0 > $iDecimals) {
+        $fNumber *= pow(10, $iDecimals);
+        $sAppend = str_repeat('0', -$iDecimals);
+        $iDecimals = 0;
+    }
+    return number_format($fNumber, $iDecimals, '.', '').$sAppend;
 }
