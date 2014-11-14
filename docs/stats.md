@@ -10,7 +10,7 @@ Get a snapshot of the network statistics. Returns a `StatsResponse` object;
 ```php
 $Blockchain = new Blockchain($api_code);
 
-$stats = $Blockchain->Stats->get());
+$stats = $Blockchain->Stats->get();
 ```
 
 ###StatsReponse
