@@ -6,7 +6,7 @@ class Push {
     }
 
     public function TX($hex) {
-        var_dump($this->blockchain->post('pushtx', array('tx'=>$hex)));
+        $this->blockchain->post('pushtx', array('tx'=>$hex));
 
         return true;
     }
