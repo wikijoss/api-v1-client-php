@@ -1,11 +1,11 @@
 Statistics Documentation
-==============================
+========================
 
 Provides data found on the [Blockchain stats page](https://blockchain.info/stats), representing Bitcoin network statistics for the past 24 hours.
 
 Get Stats
 ---------
-Get a snapshot of the network statistics. Returns a `StatsResponse` object;
+Get a snapshot of the network statistics. Returns a `StatsResponse` object.
 
 ```php
 $Blockchain = new Blockchain($api_code);
