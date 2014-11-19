@@ -76,6 +76,8 @@ Documentation
 
 [Block explorer](docs/blockexplorer.md) - Access details of the Bitcoin blockchain
 
+[Create Wallets](docs/create.md) - Create new Blockchain wallets
+
 [Exchange Rates](docs/rates.md) - See the value of Bitcoin relative to world currencies
 
 [Push Transaction](docs/pushtx.md) - Push raw transactions to the Bitcoin network

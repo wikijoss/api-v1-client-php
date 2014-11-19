@@ -16,6 +16,7 @@ if(!function_exists('curl_init')) {
     throw new Blockchain_Error("cURL module not installed.");
 }
 
+require_once(__DIR__.'/Blockchain/Create.php');
 require_once(__DIR__.'/Blockchain/Explorer.php');
 require_once(__DIR__.'/Blockchain/PushTX.php');
 require_once(__DIR__.'/Blockchain/Rates.php');
@@ -46,6 +47,7 @@ class Blockchain {
         curl_setopt($this->ch, CURLOPT_TIMEOUT, 60);
         curl_setopt($this->ch, CURLOPT_CAINFO, __DIR__.'/Blockchain/ca-bundle.crt');
 
+        $this->Create = new Create($this);
         $this->Explorer = new Explorer($this);
         $this->Push = new Push($this);
         $this->Rates = new Rates($this);
