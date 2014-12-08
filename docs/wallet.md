@@ -67,7 +67,7 @@ Send Bitcoin to a single recipient address. The `$amount` field is either a `flo
 
 The optional `$from_address` field specifies which wallet address from which to send the funds. An optional `$fee` amount (`float`) may be specified but must be more than the default fee listed on the [official documentation](https://blockchain.info/api/blockchain_wallet_api).
 
-The `$public_note` parameter is a message that will appear alongside this transaction on the blockchain.info block explorer.
+The `$public_note` parameter is a message that will appear alongside this transaction on the blockchain.info block explorer. A minimum transaction size of 0.005 BTC is required for public notes.
 
 Returns a `PaymentResponse` object on success and throws a `Blockchain_ApiError` exception for insufficient funds, etc.
 
