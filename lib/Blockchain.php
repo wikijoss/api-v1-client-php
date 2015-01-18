@@ -3,8 +3,8 @@
     Blockchain PHP API
     https://github.com/blockchain/api-v1-client-php/
 */
-
-require_once(__DIR__.'/Blockchain/Exceptions.php');
+    
+require_once(dirname(__FILE__).'/Blockchain/Exceptions.php');
 
 // Check if BCMath module installed
 if(!function_exists('bcscale')) {
@@ -16,13 +16,13 @@ if(!function_exists('curl_init')) {
     throw new Blockchain_Error("cURL module not installed.");
 }
 
-require_once(__DIR__.'/Blockchain/Create.php');
-require_once(__DIR__.'/Blockchain/Explorer.php');
-require_once(__DIR__.'/Blockchain/PushTX.php');
-require_once(__DIR__.'/Blockchain/Rates.php');
-require_once(__DIR__.'/Blockchain/Receive.php');
-require_once(__DIR__.'/Blockchain/Stats.php');
-require_once(__DIR__.'/Blockchain/Wallet.php');
+require_once(dirname(__FILE__).'/Blockchain/Create.php');
+require_once(dirname(__FILE__).'/Blockchain/Explorer.php');
+require_once(dirname(__FILE__).'/Blockchain/PushTX.php');
+require_once(dirname(__FILE__).'/Blockchain/Rates.php');
+require_once(dirname(__FILE__).'/Blockchain/Receive.php');
+require_once(dirname(__FILE__).'/Blockchain/Stats.php');
+require_once(dirname(__FILE__).'/Blockchain/Wallet.php');
 
 class Blockchain {
 	const URL = 'https://blockchain.info/';
@@ -45,7 +45,7 @@ class Blockchain {
         curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($this->ch, CURLOPT_CONNECTTIMEOUT, 30);
         curl_setopt($this->ch, CURLOPT_TIMEOUT, 60);
-        curl_setopt($this->ch, CURLOPT_CAINFO, __DIR__.'/Blockchain/ca-bundle.crt');
+        curl_setopt($this->ch, CURLOPT_CAINFO, dirname(__FILE__).'/Blockchain/ca-bundle.crt');
 
         $this->Create = new Create($this);
         $this->Explorer = new Explorer($this);
