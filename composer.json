@@ -1,0 +1,14 @@
+{
+    "name": "blockchain/blockchain",
+    "description": "Blockchain API client library",
+    "keywords": ["bitcoin", "blockchain"],
+    "homepage": ["https://blockchain.info/"],
+    "license": "MIT",
+    "autoload": {
+        "psr-4": { "": "lib/" }
+    },
+    "require": {
+        "php": ">=5.3.0",
+        "ext-curl": "*"
+    }
+}
