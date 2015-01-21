@@ -56,7 +56,7 @@ class Blockchain {
         $this->Wallet = new Wallet($this);
 	}
 
-	public function __deconstruct() {
+	public function __destruct() {
 		curl_close($this->ch);
 	}
 
