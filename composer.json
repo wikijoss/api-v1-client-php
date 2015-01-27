@@ -2,7 +2,7 @@
     "name": "blockchain/blockchain",
     "description": "Blockchain API client library",
     "keywords": ["bitcoin", "blockchain"],
-    "homepage": ["https://blockchain.info/"],
+    "homepage": "https://github.com/blockchain/api-v1-client-php",
     "license": "MIT",
     "autoload": {
         "psr-4": { "": "lib/" }
