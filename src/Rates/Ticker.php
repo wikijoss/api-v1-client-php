@@ -1,32 +1,39 @@
 <?php
+/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
-class Rates {
-    public function __construct(Blockchain $blockchain) {
-        $this->blockchain = $blockchain;
-    }
+/**
+ * Short File Description
+ * 
+ * PHP version 5
+ * 
+ * @category   aCategory
+ * @package    aPackage
+ * @subpackage aSubPackage
+ * @author     anAuthor
+ * @copyright  2014 a Copyright
+ * @license    a License
+ * @link       http://www.aLink.com
+ */
+namespace Blockchain\Rates;
 
-    public function get() {
-        $rates = array();
-        
-        $json = $this->blockchain->get('ticker', array('format'=>'json'));
-        foreach ($json as $cur => $data) {
-            $rates[$cur] = new Ticker($cur, $data);
-        }
-        
-        return $rates;
-    }
-
-    public function toBTC($amount, $symbol) {
-        $params = array(
-            'currency'=>$symbol,
-            'value'=>$amount,
-            'format'=>'json'
-        );
-        return $this->blockchain->get('tobtc', $params);
-    }
-}
-
-class Ticker {
+/**
+ * Short Class Description
+ * 
+ * PHP version 5
+ * 
+ * @category   aCategory
+ * @package    aPackage
+ * @subpackage aSubPackage
+ * @author     anAuthor
+ * @copyright  2014 a Copyright
+ * @license    a License
+ * @link       http://www.aLink.com
+ */
+class Ticker 
+{
+    /**
+     * Properties
+     */
     public $m15;                                // float
     public $last;                               // float
     public $buy;                                // float
@@ -34,6 +41,9 @@ class Ticker {
     public $cur;                                // string
     public $symbol;                             // string
 
+    /**
+     * Methods
+     */
     public function __construct($cur, $json) {
         $this->cur = $cur;
 

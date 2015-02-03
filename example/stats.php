@@ -1,13 +1,13 @@
 <pre><?php
 
-require_once('../lib/Blockchain.php');
+require_once(dirname(__DIR__) . '/vendor/autoload.php');
 
 $api_code = null;
 if(file_exists('code.txt')) {
     $api_code = trim(file_get_contents('code.txt'));
 }
 
-$Blockchain = new Blockchain($api_code);
+$Blockchain = new \Blockchain\Blockchain($api_code);
 
 // Get Statistics
 $stats = $Blockchain->Stats->get();

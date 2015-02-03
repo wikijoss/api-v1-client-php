@@ -1,16 +1,39 @@
 <?php
+/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
-class Stats {
-    public function __construct(Blockchain $blockchain) {
-        $this->blockchain = $blockchain;
-    }
+/**
+ * Short File Description
+ * 
+ * PHP version 5
+ * 
+ * @category   aCategory
+ * @package    aPackage
+ * @subpackage aSubPackage
+ * @author     anAuthor
+ * @copyright  2014 a Copyright
+ * @license    a License
+ * @link       http://www.aLink.com
+ */
+namespace Blockchain\Stats;
 
-    public function get() {
-        return new StatsResponse($this->blockchain->get('stats', array('format'=>'json')));
-    }
-}
-
-class StatsResponse {
+/**
+ * Short Class Description
+ * 
+ * PHP version 5
+ * 
+ * @category   aCategory
+ * @package    aPackage
+ * @subpackage aSubPackage
+ * @author     anAuthor
+ * @copyright  2014 a Copyright
+ * @license    a License
+ * @link       http://www.aLink.com
+ */
+class StatsResponse 
+{
+    /**
+     * Properties
+     */
     public $blocks_size;                        // int
     public $difficulty;                         // float
     public $estimated_btc_sent;                 // string - Bitcoin value
@@ -33,13 +56,16 @@ class StatsResponse {
     public $trade_volume_btc;                   // float
     public $trade_volume_usd;                   // float
 
+    /**
+     * Methods
+     */
     public function __construct($json) {
         if(array_key_exists('blocks_size', $json))
             $this->blocks_size = $json['blocks_size'];
         if(array_key_exists('difficulty', $json))
             $this->difficulty = $json['difficulty'];
         if(array_key_exists('estimated_btc_sent', $json))
-            $this->estimated_btc_sent = BTC_int2str(bcconv($json['estimated_btc_sent']));
+            $this->estimated_btc_sent = \Blockchain\Conversion\Conversion::BTC_int2str(\Blockchain\Conversion\Conversion::bcconv($json['estimated_btc_sent']));
         if(array_key_exists('estimated_transaction_volume_usd', $json))
             $this->estimated_transaction_volume_usd = $json['estimated_transaction_volume_usd'];
         if(array_key_exists('hash_rate', $json))
@@ -57,7 +83,7 @@ class StatsResponse {
         if(array_key_exists('n_blocks_total', $json))
             $this->n_blocks_total = $json['n_blocks_total'];
         if(array_key_exists('n_btc_mined', $json))
-            $this->n_btc_mined = BTC_int2str(bcconv($json['n_btc_mined']));
+            $this->n_btc_mined = \Blockchain\Conversion\Conversion::BTC_int2str(\Blockchain\Conversion\Conversion::bcconv($json['n_btc_mined']));
         if(array_key_exists('n_tx', $json))
             $this->n_tx = $json['n_tx'];
         if(array_key_exists('nextretarget', $json))
@@ -65,16 +91,16 @@ class StatsResponse {
         if(array_key_exists('timestamp', $json))
             $this->timestamp = $json['timestamp']/1000.0;
         if(array_key_exists('total_btc_sent', $json))
-            $this->total_btc_sent = BTC_int2str(bcconv($json['total_btc_sent']));
+            $this->total_btc_sent = \Blockchain\Conversion\Conversion::BTC_int2str(\Blockchain\Conversion\Conversion::bcconv($json['total_btc_sent']));
         if(array_key_exists('total_fees_btc', $json))
-            $this->total_fees_btc = BTC_int2str(bcconv($json['total_fees_btc']));
+            $this->total_fees_btc = \Blockchain\Conversion\Conversion::BTC_int2str(\Blockchain\Conversion\Conversion::bcconv($json['total_fees_btc']));
         if(array_key_exists('totalbc', $json))
-            $this->totalbc = BTC_int2str(bcconv($json['totalbc']));
+            $this->totalbc = \Blockchain\Conversion\Conversion::BTC_int2str(\Blockchain\Conversion\Conversion::bcconv($json['totalbc']));
         if(array_key_exists('trade_volume_btc', $json))
             $this->trade_volume_btc = $json['trade_volume_btc'];
         if(array_key_exists('trade_volume_usd', $json))
             $this->trade_volume_usd = $json['trade_volume_usd'];
-        
+
         if(array_key_exists('market_cap', $json))
             $this->market_cap = $json['market_cap'];
         else

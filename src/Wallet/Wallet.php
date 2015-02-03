@@ -1,27 +1,33 @@
 <?php
 
+namespace Blockchain\Wallet;
+
+use \Blockchain\Blockchain;
+use \Blockchain\Exception\CredentialsError;
+use \Blockchain\Exception\ParameterError;
+
 class Wallet {
-	private $identifier = null;
-	private $main_password = null;
-	private $second_password = null;
+    private $identifier = null;
+    private $main_password = null;
+    private $second_password = null;
 
-	public function __construct(Blockchain $blockchain) {
-		$this->blockchain = $blockchain;
-	}
+    public function __construct(Blockchain $blockchain) {
+        $this->blockchain = $blockchain;
+    }
 
-	public function credentials($id, $pw1, $pw2=null) {
-		$this->identifier = $id;
-		$this->main_password = $pw1;
-		if(!is_null($pw2)) {
-			$this->second_password = $pw2;
-		}
-	}
+    public function credentials($id, $pw1, $pw2=null) {
+        $this->identifier = $id;
+        $this->main_password = $pw1;
+        if(!is_null($pw2)) {
+            $this->second_password = $pw2;
+        }
+    }
 
-	private function _checkCredentials() {
-		if(is_null($this->identifier) || is_null($this->main_password)) {
-			throw new Blockchain_CredentialsError('Please enter wallet credentials.');
-		}
-	}
+    private function _checkCredentials() {
+        if(is_null($this->identifier) || is_null($this->main_password)) {
+            throw new CredentialsError('Please enter wallet credentials.');
+        }
+    }
 
     private function reqParams($extras=array()) {
         $ret = array('password'=>$this->main_password);
@@ -47,7 +53,7 @@ class Wallet {
 
     public function getBalance() {
         $json = $this->call('balance');
-        return BTC_int2str($json['balance']);
+        return \Blockchain\Conversion\Conversion::BTC_int2str($json['balance']);
     }
 
     public function getAddressBalance($address) {
@@ -102,16 +108,16 @@ class Wallet {
 
     public function send($to_address, $amount, $from_address=null, $fee=null, $public_note=null) {
         if(!isset($amount))
-            throw new Blockchain_ParameterError("Amount required.");
+            throw new ParameterError("Amount required.");
 
         $params = array(
             'to'=>$to_address,
-            'amount'=>BTC_float2int($amount)
+            'amount'=>\Blockchain\Conversion\Conversion::BTC_float2int($amount)
         );
         if(!is_null($from_address))
             $params['from'] = $from_address;
         if(!is_null($fee))
-            $params['fee'] = BTC_float2int($fee);
+            $params['fee'] = \Blockchain\Conversion\Conversion::BTC_float2int($fee);
         if(!is_null($public_note))
             $params['note'] = $public_note;
         
@@ -122,7 +128,7 @@ class Wallet {
         $R = array();
         // Construct JSON by hand, preserving the full value of amounts
         foreach ($recipients as $address => $amount) {
-            $R[] = '"' . $address . '":' . BTC_float2int($amount);
+            $R[] = '"' . $address . '":' . \Blockchain\Conversion\Conversion::BTC_float2int($amount);
         }
         $json = '{' . implode(',', $R) . '}';
 
@@ -132,43 +138,10 @@ class Wallet {
         if(!is_null($from_address))
             $params['from'] = $from_address;
         if(!is_null($fee))
-            $params['fee'] = BTC_float2int($fee);
+            $params['fee'] = \Blockchain\Conversion\Conversion::BTC_float2int($fee);
         if(!is_null($public_note))
             $params['note'] = $public_note;
         
         return new PaymentResponse($this->call('sendmany', $params));
-    }
-}
-
-class PaymentResponse {
-    public $message;                    // string
-    public $tx_hash;                    // string
-    public $notice;                     // string
-
-    public function __construct($json) {
-        if(array_key_exists('message', $json))
-            $this->message = $json['message'];
-        if(array_key_exists('tx_hash', $json))
-            $this->tx_hash = $json['tx_hash'];
-        if(array_key_exists('notice', $json))
-            $this->notice = $json['notice'];
-    }
-}
-
-class WalletAddress {
-    public $balance;                    // string, e.g. "12.64952835"
-    public $address;                    // string
-    public $label;                      // string
-    public $total_received;             // string, e.g. "12.64952835"
-
-    public function __construct($json) {
-        if(array_key_exists('balance', $json))
-            $this->balance = BTC_int2str($json['balance']);
-        if(array_key_exists('address', $json))
-            $this->address = $json['address'];
-        if(array_key_exists('label', $json))
-            $this->label = $json['label'];
-        if(array_key_exists('total_received', $json))
-            $this->total_received = $json['total_received'];
     }
 }

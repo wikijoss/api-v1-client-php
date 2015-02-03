@@ -1,5 +1,9 @@
 <?php
 
+namespace Blockchain\PushTX;
+
+use \Blockchain\Blockchain;
+
 class Push {
     public function __construct(Blockchain $blockchain) {
         $this->blockchain = $blockchain;
