@@ -2,6 +2,9 @@
 
 namespace Blockchain\Explorer;
 
+use \Blockchain\Blockchain;
+use \Blockchain\Exception\FormatError;
+
 class Explorer {
     public function __construct(Blockchain $blockchain) {
         $this->blockchain = $blockchain;
@@ -13,7 +16,7 @@ class Explorer {
 
     public function getBlocksAtHeight($height) {
         if(!is_integer($height)) {
-            throw new Blockchain_FormatError('Block height must be iteger.');
+            throw new FormatError('Block height must be iteger.');
         }
         $blocks = array();
         $json = $this->blockchain->get('block-height/' . $height, array('format'=>'json'));
@@ -28,7 +31,7 @@ class Explorer {
 
     public function getBlockByIndex($index) {
         if(!is_integer($index)) {
-            throw new Blockchain_FormatError('Block index must be iteger.');
+            throw new FormatError('Block index must be iteger.');
         }
         return new Block($this->blockchain->get('block-index/' . $index, array('format'=>'json')));
     }
@@ -58,7 +61,7 @@ class Explorer {
     */
     public function getUnspentOutputs($addresses) {
         if(!is_array($addresses))
-            throw new Blockchain_FormatError('Must pass array argument.');
+            throw new FormatError('Must pass array argument.');
         $params = array(
             'format'=>'json',
             'active'=>implode('|', $addresses)

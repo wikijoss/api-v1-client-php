@@ -2,6 +2,10 @@
 
 namespace Blockchain\Wallet;
 
+use \Blockchain\Blockchain;
+use \Blockchain\Exception\CredentialsError;
+use \Blockchain\Exception\ParameterError;
+
 class Wallet {
     private $identifier = null;
     private $main_password = null;
@@ -21,7 +25,7 @@ class Wallet {
 
     private function _checkCredentials() {
         if(is_null($this->identifier) || is_null($this->main_password)) {
-            throw new Blockchain_CredentialsError('Please enter wallet credentials.');
+            throw new CredentialsError('Please enter wallet credentials.');
         }
     }
 
@@ -104,7 +108,7 @@ class Wallet {
 
     public function send($to_address, $amount, $from_address=null, $fee=null, $public_note=null) {
         if(!isset($amount))
-            throw new Blockchain_ParameterError("Amount required.");
+            throw new ParameterError("Amount required.");
 
         $params = array(
             'to'=>$to_address,

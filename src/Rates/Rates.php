@@ -2,6 +2,8 @@
 
 namespace Blockchain\Rates;
 
+use \Blockchain\Blockchain;
+
 class Rates
 {
     public function __construct(Blockchain $blockchain)

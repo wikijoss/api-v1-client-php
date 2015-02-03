@@ -2,6 +2,8 @@
 
 namespace Blockchain\Receive;
 
+use \Blockchain\Blockchain;
+
 class Receive {
     public function __construct(Blockchain $blockchain) {
         $this->blockchain = $blockchain;

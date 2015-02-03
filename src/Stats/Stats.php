@@ -2,6 +2,8 @@
 
 namespace Blockchain\Stats;
 
+use \Blockchain\Blockchain;
+
 class Stats {
     public function __construct(Blockchain $blockchain) {
         $this->blockchain = $blockchain;
