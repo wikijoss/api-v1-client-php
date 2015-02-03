@@ -17,14 +17,26 @@
 
 namespace Blockchain;
 
+use \Blockchain\Exception\Error;
+use \Blockchain\Exception\ApiError;
+use \Blockchain\Exception\HttpError;
+
+use \Blockchain\Create\Create;
+use \Blockchain\Explorer\Explorer;
+use \Blockchain\PushTX\Push;
+use \Blockchain\Rates\Rates;
+use \Blockchain\Receive\Receive;
+use \Blockchain\Stats\Stats;
+use \Blockchain\Wallet\Wallet;
+
 // Check if BCMath module installed
 if(!function_exists('bcscale')) {
-    throw new Blockchain_Error("BC Math module not installed.");
+    throw new Error("BC Math module not installed.");
 }
 
 // Check if curl module installed
 if(!function_exists('curl_init')) {
-    throw new Blockchain_Error("cURL module not installed.");
+    throw new Error("cURL module not installed.");
 }
 
 class Blockchain {
@@ -50,13 +62,13 @@ class Blockchain {
         curl_setopt($this->ch, CURLOPT_TIMEOUT, 60);
         curl_setopt($this->ch, CURLOPT_CAINFO, dirname(__FILE__).'/Blockchain/ca-bundle.crt');
 
-        $this->Create = new Create($this);
+        $this->Create   = new Create($this);
         $this->Explorer = new Explorer($this);
-        $this->Push = new Push($this);
-        $this->Rates = new Rates($this);
-        $this->Receive = new Receive($this);
-        $this->Stats = new Stats($this);
-        $this->Wallet = new Wallet($this);
+        $this->Push     = new Push($this);
+        $this->Rates    = new Rates($this);
+        $this->Receive  = new Receive($this);
+        $this->Stats    = new Stats($this);
+        $this->Wallet   = new Wallet($this);
     }
 
     public function __destruct() {
@@ -84,7 +96,7 @@ class Blockchain {
 
         // throw ApiError if we get an 'error' field in the JSON
         if(array_key_exists('error', $json)) {
-            throw new Blockchain_ApiError($json['error']);
+            throw new ApiError($json['error']);
         }
 
         return $json;
@@ -111,11 +123,11 @@ class Blockchain {
 
         if(curl_error($this->ch)) {
             $info = curl_getinfo($this->ch);
-            throw new Blockchain_HttpError("Call to " . $info['url'] . " failed: " . curl_error($this->ch));
+            throw new HttpError("Call to " . $info['url'] . " failed: " . curl_error($this->ch));
         }
         $json = json_decode($response, true);
         if(is_null($json)) {
-            throw new Blockchain_Error("Unable to decode JSON response from Blockchain: " . $response);
+            throw new Error("Unable to decode JSON response from Blockchain: " . $response);
         }
 
         if(self::DEBUG) {
