@@ -15,7 +15,7 @@
 <body>
 <pre><?php
 
-require_once('../lib/Blockchain.php');
+require_once('../src/Blockchain.php');
 
 $api_code = null;
 if(file_exists('code.txt')) {
