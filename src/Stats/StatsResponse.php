@@ -83,7 +83,7 @@ class StatsResponse
         if(array_key_exists('n_blocks_total', $json))
             $this->n_blocks_total = $json['n_blocks_total'];
         if(array_key_exists('n_btc_mined', $json))
-            $this->n_btc_mined = BTC_int2str(bcconv($json['n_btc_mined']));
+            $this->n_btc_mined = \Blockchain\Conversion\Conversion::BTC_int2str(\Blockchain\Conversion\Conversion::bcconv($json['n_btc_mined']));
         if(array_key_exists('n_tx', $json))
             $this->n_tx = $json['n_tx'];
         if(array_key_exists('nextretarget', $json))
@@ -91,11 +91,11 @@ class StatsResponse
         if(array_key_exists('timestamp', $json))
             $this->timestamp = $json['timestamp']/1000.0;
         if(array_key_exists('total_btc_sent', $json))
-            $this->total_btc_sent = BTC_int2str(bcconv($json['total_btc_sent']));
+            $this->total_btc_sent = \Blockchain\Conversion\Conversion::BTC_int2str(\Blockchain\Conversion\Conversion::bcconv($json['total_btc_sent']));
         if(array_key_exists('total_fees_btc', $json))
-            $this->total_fees_btc = BTC_int2str(bcconv($json['total_fees_btc']));
+            $this->total_fees_btc = \Blockchain\Conversion\Conversion::BTC_int2str(\Blockchain\Conversion\Conversion::bcconv($json['total_fees_btc']));
         if(array_key_exists('totalbc', $json))
-            $this->totalbc = BTC_int2str(bcconv($json['totalbc']));
+            $this->totalbc = \Blockchain\Conversion\Conversion::BTC_int2str(\Blockchain\Conversion\Conversion::bcconv($json['totalbc']));
         if(array_key_exists('trade_volume_btc', $json))
             $this->trade_volume_btc = $json['trade_volume_btc'];
         if(array_key_exists('trade_volume_usd', $json))

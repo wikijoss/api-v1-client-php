@@ -48,7 +48,7 @@ class Output
         if(array_key_exists('n', $json))
             $this->n = $json['n'];
         if(array_key_exists('value', $json))
-            $this->value = BTC_int2str($json['value']);
+            $this->value = \Blockchain\Conversion\Conversion::BTC_int2str($json['value']);
         if(array_key_exists('addr', $json))
             $this->address = $json['addr'];
         if(array_key_exists('tx_index', $json))

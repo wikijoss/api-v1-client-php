@@ -53,7 +53,7 @@ class Wallet {
 
     public function getBalance() {
         $json = $this->call('balance');
-        return BTC_int2str($json['balance']);
+        return \Blockchain\Conversion\Conversion::BTC_int2str($json['balance']);
     }
 
     public function getAddressBalance($address) {
@@ -112,12 +112,12 @@ class Wallet {
 
         $params = array(
             'to'=>$to_address,
-            'amount'=>BTC_float2int($amount)
+            'amount'=>\Blockchain\Conversion\Conversion::BTC_float2int($amount)
         );
         if(!is_null($from_address))
             $params['from'] = $from_address;
         if(!is_null($fee))
-            $params['fee'] = BTC_float2int($fee);
+            $params['fee'] = \Blockchain\Conversion\Conversion::BTC_float2int($fee);
         if(!is_null($public_note))
             $params['note'] = $public_note;
         
@@ -128,7 +128,7 @@ class Wallet {
         $R = array();
         // Construct JSON by hand, preserving the full value of amounts
         foreach ($recipients as $address => $amount) {
-            $R[] = '"' . $address . '":' . BTC_float2int($amount);
+            $R[] = '"' . $address . '":' . \Blockchain\Conversion\Conversion::BTC_float2int($amount);
         }
         $json = '{' . implode(',', $R) . '}';
 
@@ -138,7 +138,7 @@ class Wallet {
         if(!is_null($from_address))
             $params['from'] = $from_address;
         if(!is_null($fee))
-            $params['fee'] = BTC_float2int($fee);
+            $params['fee'] = \Blockchain\Conversion\Conversion::BTC_float2int($fee);
         if(!is_null($public_note))
             $params['note'] = $public_note;
         

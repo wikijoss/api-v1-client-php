@@ -68,7 +68,7 @@ class Block
         if(array_key_exists('bits', $json))
             $this->bits = $json['bits'];
         if(array_key_exists('fee', $json))
-            $this->fee = BTC_int2str($json['fee']);
+            $this->fee = \Blockchain\Conversion\Conversion::BTC_int2str($json['fee']);
         if(array_key_exists('nonce', $json))
             $this->nonce = $json['nonce'];
         if(array_key_exists('n_tx', $json))

@@ -1,13 +1,15 @@
 <pre><?php
 
-require_once('../src/Blockchain.php');
+$sRootPath = dirname(__DIR__);
+var_dump($sRootPath);
+require_once($sRootPath . '/vendor/autoload.php');
 
 $api_code = null;
 if(file_exists('code.txt')) {
 	$api_code = trim(file_get_contents('code.txt'));
 }
 
-$Blockchain = new Blockchain($api_code);
+$Blockchain = new \Blockchain\Blockchain($api_code);
 
 // List all blocks at a certain height
 // var_dump($Blockchain->Explorer->getBlocksAtHeight(1));

@@ -44,7 +44,7 @@ class WalletAddress
      */
     public function __construct($json) {
         if(array_key_exists('balance', $json))
-            $this->balance = BTC_int2str($json['balance']);
+            $this->balance = \Blockchain\Conversion\Conversion::BTC_int2str($json['balance']);
         if(array_key_exists('address', $json))
             $this->address = $json['address'];
         if(array_key_exists('label', $json))

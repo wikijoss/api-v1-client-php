@@ -58,7 +58,7 @@ class UnspentOutput
         if(array_key_exists('script', $json))
             $this->script = $json['script'];
         if(array_key_exists('value', $json))
-            $this->value = BTC_int2str($json['value']);
+            $this->value = \Blockchain\Conversion\Conversion::BTC_int2str($json['value']);
         if(array_key_exists('value_hex', $json))
             $this->value_hex = $json['value_hex'];
         if(array_key_exists('confirmations', $json))

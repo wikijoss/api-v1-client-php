@@ -53,11 +53,11 @@ class Address
         if(array_key_exists('n_tx', $json))
             $this->n_tx = $json['n_tx'];
         if(array_key_exists('total_received', $json))
-            $this->total_received = BTC_int2str($json['total_received']);
+            $this->total_received = \Blockchain\Conversion\Conversion::BTC_int2str($json['total_received']);
         if(array_key_exists('total_sent', $json))
-            $this->total_sent = BTC_int2str($json['total_sent']);
+            $this->total_sent = \Blockchain\Conversion\Conversion::BTC_int2str($json['total_sent']);
         if(array_key_exists('final_balance', $json))
-            $this->final_balance = BTC_int2str($json['final_balance']);
+            $this->final_balance = \Blockchain\Conversion\Conversion::BTC_int2str($json['final_balance']);
         if(array_key_exists('txs', $json)) {
             foreach ($json['txs'] as $txn) {
                 $this->transactions[] = new Transaction($txn);

@@ -54,7 +54,7 @@ class Input
             if(array_key_exists('n', $P))
                 $this->n = $P['n'];
             if(array_key_exists('value', $P))
-                $this->value = BTC_int2str($P['value']);
+                $this->value = \Blockchain\Conversion\Conversion::BTC_int2str($P['value']);
             if(array_key_exists('addr', $P))
                 $this->address = $P['addr'];
             if(array_key_exists('tx_index', $P))
