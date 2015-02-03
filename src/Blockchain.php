@@ -1,10 +1,19 @@
 <?php
-/*
-    Blockchain PHP API
-    https://github.com/blockchain/api-v1-client-php/
-*/
-    
-require_once(dirname(__FILE__).'/Blockchain/Exceptions.php');
+/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+
+/**
+ * Short File Description
+ *
+ * PHP version 5
+ *
+ * @category   aCategory
+ * @package    aPackage
+ * @subpackage aSubPackage
+ * @author     anAuthor
+ * @copyright  2014 a Copyright
+ * @license    a License
+ * @link       http://www.aLink.com
+ */
 
 // Check if BCMath module installed
 if(!function_exists('bcscale')) {
