@@ -65,7 +65,7 @@ class StatsResponse
         if(array_key_exists('difficulty', $json))
             $this->difficulty = $json['difficulty'];
         if(array_key_exists('estimated_btc_sent', $json))
-            $this->estimated_btc_sent = BTC_int2str(bcconv($json['estimated_btc_sent']));
+            $this->estimated_btc_sent = \Blockchain\Conversion\Conversion::BTC_int2str(\Blockchain\Conversion\Conversion::bcconv($json['estimated_btc_sent']));
         if(array_key_exists('estimated_transaction_volume_usd', $json))
             $this->estimated_transaction_volume_usd = $json['estimated_transaction_volume_usd'];
         if(array_key_exists('hash_rate', $json))
