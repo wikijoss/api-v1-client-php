@@ -1,8 +1,6 @@
 <pre><?php
 
-$sRootPath = dirname(__DIR__);
-var_dump($sRootPath);
-require_once($sRootPath . '/vendor/autoload.php');
+require_once(dirname(__DIR__) . '/vendor/autoload.php');
 
 $api_code = null;
 if(file_exists('code.txt')) {
