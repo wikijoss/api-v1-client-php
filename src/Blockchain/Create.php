@@ -1,9 +1,9 @@
 <?php
 
 class Create {
-	public function __construct(Blockchain $blockchain) {
-		$this->blockchain = $blockchain;
-	}
+    public function __construct(Blockchain $blockchain) {
+        $this->blockchain = $blockchain;
+    }
 
     public function create($password, $email=null, $label=null) {
         return $this->doCreate($password, null, $email, $label);

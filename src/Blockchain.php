@@ -34,22 +34,22 @@ require_once(dirname(__FILE__).'/Blockchain/Stats.php');
 require_once(dirname(__FILE__).'/Blockchain/Wallet.php');
 
 class Blockchain {
-	const URL = 'https://blockchain.info/';
+    const URL = 'https://blockchain.info/';
 
 
-	private $ch;
-	private $api_code = null;
+    private $ch;
+    private $api_code = null;
 
-	const DEBUG = true;
-	public $log = Array();
+    const DEBUG = true;
+    public $log = Array();
 
-	public function __construct($api_code=null) {
-		if(!is_null($api_code)) {
-			$this->api_code = $api_code;
-		}
+    public function __construct($api_code=null) {
+        if(!is_null($api_code)) {
+            $this->api_code = $api_code;
+        }
 
-		$this->ch = curl_init();
-		curl_setopt($this->ch, CURLOPT_USERAGENT, 'Blockchain-PHP/1.0');
+        $this->ch = curl_init();
+        curl_setopt($this->ch, CURLOPT_USERAGENT, 'Blockchain-PHP/1.0');
         curl_setopt($this->ch, CURLOPT_HEADER, false);
         curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($this->ch, CURLOPT_CONNECTTIMEOUT, 30);
@@ -63,18 +63,18 @@ class Blockchain {
         $this->Receive = new Receive($this);
         $this->Stats = new Stats($this);
         $this->Wallet = new Wallet($this);
-	}
+    }
 
-	public function __destruct() {
-		curl_close($this->ch);
-	}
+    public function __destruct() {
+        curl_close($this->ch);
+    }
 
-	public function setTimeout($timeout) {
-		curl_setopt($this->ch, CURLOPT_TIMEOUT, intval($timeout));
-	}
+    public function setTimeout($timeout) {
+        curl_setopt($this->ch, CURLOPT_TIMEOUT, intval($timeout));
+    }
 
-	public function post($resource, $data=null) {
-		curl_setopt($this->ch, CURLOPT_URL, self::URL.$resource);
+    public function post($resource, $data=null) {
+        curl_setopt($this->ch, CURLOPT_URL, self::URL.$resource);
         curl_setopt($this->ch, CURLOPT_POST, true);
 
         curl_setopt($this->ch, CURLOPT_HTTPHEADER, 
@@ -86,54 +86,54 @@ class Blockchain {
 
         curl_setopt($this->ch, CURLOPT_POSTFIELDS, http_build_query($data));
 
-		$json = $this->_call();
+        $json = $this->_call();
 
-		// throw ApiError if we get an 'error' field in the JSON
-		if(array_key_exists('error', $json)) {
-			throw new Blockchain_ApiError($json['error']);
-		}
+        // throw ApiError if we get an 'error' field in the JSON
+        if(array_key_exists('error', $json)) {
+            throw new Blockchain_ApiError($json['error']);
+        }
 
-		return $json;
-	}
+        return $json;
+    }
 
-	public function get($resource, $params=null) {
-		curl_setopt($this->ch, CURLOPT_POST, false);
+    public function get($resource, $params=null) {
+        curl_setopt($this->ch, CURLOPT_POST, false);
 
-		if(!is_null($this->api_code)) {
-			$params['api_code'] = $this->api_code;
-		}
+        if(!is_null($this->api_code)) {
+            $params['api_code'] = $this->api_code;
+        }
         curl_setopt($this->ch, CURLOPT_HTTPHEADER, array());
 
-		$query = http_build_query($params);
-		curl_setopt($this->ch, CURLOPT_URL, self::URL.$resource.'?'.$query);
+        $query = http_build_query($params);
+        curl_setopt($this->ch, CURLOPT_URL, self::URL.$resource.'?'.$query);
 
-		return $this->_call();
-	}
+        return $this->_call();
+    }
 
-	private function _call() {
-		$t0 = microtime(true);
-		$response = curl_exec($this->ch);
-		$dt = microtime(true) - $t0;
+    private function _call() {
+        $t0 = microtime(true);
+        $response = curl_exec($this->ch);
+        $dt = microtime(true) - $t0;
 
-		if(curl_error($this->ch)) {
-			$info = curl_getinfo($this->ch);
-			throw new Blockchain_HttpError("Call to " . $info['url'] . " failed: " . curl_error($this->ch));
-		}
-		$json = json_decode($response, true);
-		if(is_null($json)) {
-			throw new Blockchain_Error("Unable to decode JSON response from Blockchain: " . $response);
-		}
+        if(curl_error($this->ch)) {
+            $info = curl_getinfo($this->ch);
+            throw new Blockchain_HttpError("Call to " . $info['url'] . " failed: " . curl_error($this->ch));
+        }
+        $json = json_decode($response, true);
+        if(is_null($json)) {
+            throw new Blockchain_Error("Unable to decode JSON response from Blockchain: " . $response);
+        }
 
-		if(self::DEBUG) {
-			$info = curl_getinfo($this->ch);
-			$this->log[] = array(
-				'curl_info' => $info,
-				'elapsed_ms' => round(1000*$dt)
-			);
-		}
+        if(self::DEBUG) {
+            $info = curl_getinfo($this->ch);
+            $this->log[] = array(
+                'curl_info' => $info,
+                'elapsed_ms' => round(1000*$dt)
+            );
+        }
 
-		return $json;
-	}
+        return $json;
+    }
 }
 
 // Convert an incoming integer to a BTC string value
