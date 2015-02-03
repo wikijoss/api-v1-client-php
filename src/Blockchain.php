@@ -25,13 +25,13 @@ if(!function_exists('curl_init')) {
     throw new Blockchain_Error("cURL module not installed.");
 }
 
-require_once(dirname(__FILE__).'/Blockchain/Create.php');
-require_once(dirname(__FILE__).'/Blockchain/Explorer.php');
-require_once(dirname(__FILE__).'/Blockchain/PushTX.php');
-require_once(dirname(__FILE__).'/Blockchain/Rates.php');
-require_once(dirname(__FILE__).'/Blockchain/Receive.php');
-require_once(dirname(__FILE__).'/Blockchain/Stats.php');
-require_once(dirname(__FILE__).'/Blockchain/Wallet.php');
+require_once(dirname(__FILE__) . '/Blockchain/Create.php');
+require_once(dirname(__FILE__) . '/Blockchain/Explorer.php');
+require_once(dirname(__FILE__) . '/Blockchain/PushTX.php');
+require_once(dirname(__FILE__) . '/Blockchain/Rates.php');
+require_once(dirname(__FILE__) . '/Blockchain/Receive.php');
+require_once(dirname(__FILE__) . '/Blockchain/Stats.php');
+require_once(dirname(__FILE__) . '/Blockchain/Wallet.php');
 
 class Blockchain {
     const URL = 'https://blockchain.info/';

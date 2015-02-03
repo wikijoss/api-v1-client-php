@@ -1,5 +1,7 @@
 <?php
 
+namespace Blockchain\Create;
+
 class Create {
     public function __construct(Blockchain $blockchain) {
         $this->blockchain = $blockchain;
@@ -32,20 +34,5 @@ class Create {
             $params['label'] = $label;
 
         return new WalletResponse($this->blockchain->post('api/v2/create_wallet', $params));
-    }
-}
-
-class WalletResponse {
-    public $guid;                       // string
-    public $address;                    // string
-    public $link;                       // string
-
-    public function __construct($json) {
-        if(array_key_exists('guid', $json))
-            $this->guid = $json['guid'];
-        if(array_key_exists('address', $json))
-            $this->address = $json['address'];
-        if(array_key_exists('link', $json))
-            $this->link = $json['link'];
     }
 }

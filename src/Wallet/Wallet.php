@@ -1,5 +1,7 @@
 <?php
 
+namespace Blockchain\Wallet;
+
 class Wallet {
     private $identifier = null;
     private $main_password = null;
@@ -137,38 +139,5 @@ class Wallet {
             $params['note'] = $public_note;
         
         return new PaymentResponse($this->call('sendmany', $params));
-    }
-}
-
-class PaymentResponse {
-    public $message;                    // string
-    public $tx_hash;                    // string
-    public $notice;                     // string
-
-    public function __construct($json) {
-        if(array_key_exists('message', $json))
-            $this->message = $json['message'];
-        if(array_key_exists('tx_hash', $json))
-            $this->tx_hash = $json['tx_hash'];
-        if(array_key_exists('notice', $json))
-            $this->notice = $json['notice'];
-    }
-}
-
-class WalletAddress {
-    public $balance;                    // string, e.g. "12.64952835"
-    public $address;                    // string
-    public $label;                      // string
-    public $total_received;             // string, e.g. "12.64952835"
-
-    public function __construct($json) {
-        if(array_key_exists('balance', $json))
-            $this->balance = BTC_int2str($json['balance']);
-        if(array_key_exists('address', $json))
-            $this->address = $json['address'];
-        if(array_key_exists('label', $json))
-            $this->label = $json['label'];
-        if(array_key_exists('total_received', $json))
-            $this->total_received = $json['total_received'];
     }
 }

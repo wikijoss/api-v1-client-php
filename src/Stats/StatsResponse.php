@@ -1,16 +1,39 @@
 <?php
+/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
-class Stats {
-    public function __construct(Blockchain $blockchain) {
-        $this->blockchain = $blockchain;
-    }
+/**
+ * Short File Description
+ * 
+ * PHP version 5
+ * 
+ * @category   aCategory
+ * @package    aPackage
+ * @subpackage aSubPackage
+ * @author     anAuthor
+ * @copyright  2014 a Copyright
+ * @license    a License
+ * @link       http://www.aLink.com
+ */
+namespace Blockchain\Stats;
 
-    public function get() {
-        return new StatsResponse($this->blockchain->get('stats', array('format'=>'json')));
-    }
-}
-
-class StatsResponse {
+/**
+ * Short Class Description
+ * 
+ * PHP version 5
+ * 
+ * @category   aCategory
+ * @package    aPackage
+ * @subpackage aSubPackage
+ * @author     anAuthor
+ * @copyright  2014 a Copyright
+ * @license    a License
+ * @link       http://www.aLink.com
+ */
+class StatsResponse 
+{
+    /**
+     * Properties
+     */
     public $blocks_size;                        // int
     public $difficulty;                         // float
     public $estimated_btc_sent;                 // string - Bitcoin value
@@ -33,6 +56,9 @@ class StatsResponse {
     public $trade_volume_btc;                   // float
     public $trade_volume_usd;                   // float
 
+    /**
+     * Methods
+     */
     public function __construct($json) {
         if(array_key_exists('blocks_size', $json))
             $this->blocks_size = $json['blocks_size'];
@@ -74,7 +100,7 @@ class StatsResponse {
             $this->trade_volume_btc = $json['trade_volume_btc'];
         if(array_key_exists('trade_volume_usd', $json))
             $this->trade_volume_usd = $json['trade_volume_usd'];
-        
+
         if(array_key_exists('market_cap', $json))
             $this->market_cap = $json['market_cap'];
         else
