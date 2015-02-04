@@ -11,7 +11,7 @@ Download the source or clone the repository. Copy the `lib/` folder into your pr
 ```php
 require('lib/Blockchain.php');
 
-$Blockchain = new Blockchain();
+$Blockchain = new \Blockchain\Blockchain();
 ```
 
 All functionality is provided through the `Blockchain` object. 
