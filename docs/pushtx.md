@@ -10,7 +10,7 @@ Push->TX
 Broadcast a hex-encoded transaction to the Bitcoin network. Returns `true` on success, raises exception on failures such as malformed transactions.
 
 ```php
-$Blockchain = new Blockchain($api_code);
+$Blockchain = new \Blockchain\Blockchain($api_code);
 
 $tx = "RawHexCodeHere";
 

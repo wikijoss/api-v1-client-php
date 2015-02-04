@@ -4,6 +4,7 @@ Block Explorer Documentation
 The Blockchain block explorer provides programmatic access to the Bitcoin network internals. All block explorer functionality is available from the `Explorer` member object within a `Blockchain` object:
 
 ```php
+$Blockchain = new \Blockchain\Blockchain($api_code);
 $val = $Blockchain->Explorer->someFunc($param);
 ```
 

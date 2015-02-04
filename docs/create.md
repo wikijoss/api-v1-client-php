@@ -7,7 +7,7 @@ Basic Usage
 Make calls on the `Create` member object within the `Blockchain` object. Please note than an `api_code` is required with Create Wallet permissions. You may request an API code [here](https://blockchain.info/api/api_create_code).
 
 ```php
-$Blockchain = new Blockchain($api_code);
+$Blockchain = new \Blockchain\Blockchain($api_code);
 $Blockchain->Create->function(...)
 ```
 
