@@ -1,13 +1,13 @@
-Wallet Documetation
+Wallet Documentation
 ===================
-Access a Blockchain wallet programmatically. Offical documentation [here](https://blockchain.info/api/blockchain_wallet_api).
+Access a Blockchain wallet programmatically. Official documentation [here](https://blockchain.info/api/blockchain_wallet_api).
 
 Basic Usage
 -----------
 The `Blockchain` object contains a single member `Wallet` object. The wallet credentials must be set before any functionality may be used. Accessing multiple wallets is as simple as setting the credentials before making wallet calls.
 
 ```php
-$Blockchain = new Blockchain($api_code);
+$Blockchain = new \Blockchain\Blockchain($api_code);
 $Blockchain->Wallet->credentials('wallet-id-1', 'password-1', 'optional 2nd password');
 
 // Operations on "wallet-id-1"
@@ -84,7 +84,7 @@ Send a multi-recipient transaction to many addresses at once. The `$recipients` 
 $response = $Blockchain->Wallet->sendMany($recipients, $from_address=null, $fee=null, $public_note=null);
 
 // Example: the following produces the same transaction as the previous example.
-$recipeints = array(
+$recipients = array(
     "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa" => "0.005"
 );
 $response = $Blockchain->Wallet->sendMany($recipients, null, "0.0001", "Here you go, Satoshi!");

@@ -10,7 +10,7 @@ Usage
 Call `Receive->generate` on a `Blockchain` object. Pass an address and an optional callback URL. All Bitcoin received at the generated address will be forwarded to the input address. Returns a `ReceiveResponse` object.
 
 ```php
-$Blockchain = new Blockchain($api_code);
+$Blockchain = new \Blockchain\Blockchain($api_code);
 
 $my_address = '1xYourBitcoinAddress';
 $callback_url = 'http://example.com/transaction?secret=mySecret';

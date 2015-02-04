@@ -4,7 +4,7 @@ Exchange Rates Documentation
 Official documentation on the [Blockchain Exchange Rates API page](https://blockchain.info/api/exchange_rates_api).
 
 ```php
-$Blockchain = new Blockchain($api_code);
+$Blockchain = new \Blockchain\Blockchain($api_code);
 
 // Make calls on the $Blockchain->Rates object
 ```

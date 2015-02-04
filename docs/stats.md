@@ -8,7 +8,7 @@ Get Stats
 Get a snapshot of the network statistics. Returns a `StatsResponse` object.
 
 ```php
-$Blockchain = new Blockchain($api_code);
+$Blockchain = new \Blockchain\Blockchain($api_code);
 
 $stats = $Blockchain->Stats->get();
 ```
