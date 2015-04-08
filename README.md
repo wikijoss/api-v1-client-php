@@ -7,10 +7,18 @@ An official PHP library for interacting with the blockchain.info API.
 Getting Started
 ---------------
 
-Download the source or clone the repository. Copy the `lib/` folder into your project and add:
-```php
-require('lib/Blockchain.php');
+Download the source or clone the repository. This php library works with the [Composer](https://getcomposer.org/) package manager. Navigate to the root of the repository and run 
 
+```
+$ composer install
+```
+
+This will create the `/vendor` folder in the repository root. In the php source, simply:
+```php
+// Include the autoload.php from its vendor directory
+require 'vendor/autoload.php'
+
+// Create the base Blockchain class instance
 $Blockchain = new \Blockchain\Blockchain();
 ```
 
