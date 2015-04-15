@@ -29,7 +29,7 @@ All functionality is provided through the `Blockchain` object.
 The [official documentation](https://blockchain.info/api) lists API call limits, which may be bypassed with an API code. If you use a code, enter it when you create the `Blockchain` object:
 
 ```php
-$Blockchain = new Blockchain($my_api_code);
+$Blockchain = new \Blockchain\Blockchain($my_api_code);
 ```
 
 If you need an API code, you may request one [here](https://blockchain.info/api/api_create_code).
